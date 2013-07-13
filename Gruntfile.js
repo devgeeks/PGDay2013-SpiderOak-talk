@@ -1,4 +1,4 @@
-// Generated on 2013-07-11 using generator-reveal 0.0.1
+// Generated on 2013-07-13 using generator-reveal 0.0.7
 'use strict';
 var moment = require('moment');
 
@@ -21,7 +21,10 @@ module.exports = function (grunt) {
       livereload: {
         files: [
           'index.html',
-          'slides/*.md'
+          'js/*.js',
+          'slides/*.md',
+          'slides/*.html',
+          'slides/list.json'
         ],
         tasks: ['build']
       }

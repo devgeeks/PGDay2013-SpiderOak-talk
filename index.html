@@ -9,63 +9,76 @@
   <title>SpiderOak</title>
   <link rel="stylesheet" href="bower_components/reveal.js/css/reveal.min.css">
   <link rel="stylesheet" href="bower_components/reveal.js/css/theme/default.css" id="theme">
+
+  <link rel="stylesheet" href="bower_components/reveal.js/lib/css/zenburn.css" id="highlight-theme">
 </head>
 <body>
-    <div class="reveal">
-        <div class="slides">
-          <section data-markdown="slides/index.md"></section>
-          <section data-markdown="slides/who-am-i.md"></section>
-          <section data-markdown="slides/spideroak.md"></section>
-          <section data-markdown="slides/the-brief.md"></section>
-          <section data-markdown="slides/open-source.md"></section>
-          <section data-markdown="slides/tools-matter.md"></section>
-          <section data-markdown="slides/a-misguided-start.md"></section>
-          <section data-markdown="slides/android-first.md"></section>
-          <section data-markdown="slides/make-it.md"></section>
-          <section data-markdown="slides/the-uncanny-valley.md"></section>
-          <section data-markdown="slides/challenges.md"></section>
-          <section data-markdown="slides/performance-tips.md"></section>
-          <section data-markdown="slides/the-future.md"></section>
-          <section data-markdown="slides/thanks.md"></section>
-        </div>
+
+  <div class="reveal">
+    <div class="slides">
     </div>
-    <style scoped>
-      x {
-        color: orange;
-      }
-      a {
-        color: orange !important;
-      }
-    </style>
+  </div>
+  <style scoped>
+    x {
+      color: orange;
+    }
+    a {
+      color: orange !important;
+    }
+  </style>
+
+  <script src="bower_components/jquery/jquery.js"></script>
+  <script src="bower_components/handlebars/handlebars.js"></script>
   <script src="bower_components/reveal.js/lib/js/head.min.js"></script>
   <script src="bower_components/reveal.js/js/reveal.min.js"></script>
+  <script src="js/main.js"></script>
+
+  <script id="slide-template-markdown" type="x-handlebars-template">
+    <section data-markdown="slides/{{file}}"></section>
+  </script> 
+
+  <script id="slide-template" type="x-handlebars-template">
+    <section data-html="slides/{{file}}"></section>
+  </script> 
+
+  <script id="vertical-template" type="x-handlebars-template">
+    <section class="{{ident}}"></section>
+  </script>
 
   <script>
+  // First, get sorted slide list
+  $.getJSON('slides/list.json', function(data) {
+    // Append ordered slides
+    append_slides(data);
 
-      // Full list of configuration options available here:
-      // https://github.com/hakimel/reveal.js#configuration
-      Reveal.initialize({
-          controls: false,
-          progress: false,
-          history: true,
-          center: true,
+    // Configure Reveal
+    // Full list of configuration options available here:
+    // https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+      controls: true,
+      progress: false,
+      history: true,
+      center: true,
 
-          theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
-          transition: Reveal.getQueryHash().transition || 'zoom', // default/cube/page/concave/zoom/linear/fade/none
+      theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+      transition: Reveal.getQueryHash().transition || 'zoom', // default/cube/page/concave/zoom/linear/fade/none
 
-          // Optional libraries used to extend on reveal.js
-          dependencies: [
-          { src: 'bower_components/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
-          { src: 'bower_components/reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-          { src: 'bower_components/reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-          { src: 'bower_components/reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
-          { src: 'bower_components/reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
-          { src: 'bower_components/reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
-          // { src: 'plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
-          //{ src: 'bower_components/reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
-          ]
-      });
+      // Optional libraries used to extend on reveal.js
+      dependencies: [
+      { src: 'bower_components/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+      { src: 'bower_components/reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      { src: 'bower_components/reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      { src: 'bower_components/reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+      { src: 'bower_components/reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+      { src: 'bower_components/reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+      // { src: 'plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+      //{ src: 'bower_components/reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
 
+      { src: 'js/loadtemplates.js', condition: function() { return !!document.querySelector( '[data-html]' ); } }
+      ]
+    });
+  });
   </script>
+
 </body>
 </html>
