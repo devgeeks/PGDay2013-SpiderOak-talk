@@ -1,4 +1,5 @@
-PGDay2013-SpiderOak-talk
-========================
+# PhoneGap Day 2013 Talk
 
-PhoneGap Day 2013 SpiderOak Talk
+## SpiderOak
+
+### The road to a performant open source mobile app
